@@ -23,8 +23,5 @@ data class Location(
     var state: String,
     @Expose
     @SerializedName("street")
-    var street: Street,
-    @Expose
-    @SerializedName("timezone")
-    var timezone: Timezone
+    var street: Street
 ) : Parcelable

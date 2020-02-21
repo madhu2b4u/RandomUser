@@ -15,8 +15,9 @@ class RandomListRepositoryImpl @Inject constructor(
 
 ) : RandomListRepository {
     override suspend fun getRandomUsers(
-        mustFetchFromNetwork: Boolean,
-        page: Int) = liveData {
+        page: Int,
+        mustFetchFromNetwork: Boolean
+    ) = liveData {
         emit(Result.loading())
         try {
 

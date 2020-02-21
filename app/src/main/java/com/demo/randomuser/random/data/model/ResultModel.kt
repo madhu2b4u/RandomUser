@@ -10,9 +10,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ResultModel(
     @Expose
-    @SerializedName("info")
-    var info: Info,
-    @Expose
     @SerializedName("results")
     var users: List<Users>
 ) : Parcelable

@@ -22,7 +22,7 @@ class RandomListViewModel @Inject constructor(
 
     fun loadUsers(mustFetchFromNetwork: Boolean, page: Int) {
         viewModelScope.launch {
-            userResult.addSource(mRandomListUseCase.getRandomUsers(mustFetchFromNetwork, page)) {
+            userResult.addSource(mRandomListUseCase.getRandomUsers(page, mustFetchFromNetwork)) {
                 userResult.value = it
             }
         }

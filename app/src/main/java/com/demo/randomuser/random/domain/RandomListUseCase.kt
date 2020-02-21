@@ -7,8 +7,8 @@ import com.demo.randomuser.random.data.model.Users
 interface RandomListUseCase {
 
     suspend fun getRandomUsers(
-        mustFetchFromNetwork: Boolean = false,
-        page: Int
+        page: Int,
+        mustFetchFromNetwork: Boolean = false
     ): LiveData<Result<List<Users>>>
 
 }
