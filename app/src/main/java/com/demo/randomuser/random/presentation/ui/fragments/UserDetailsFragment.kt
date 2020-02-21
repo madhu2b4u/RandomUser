@@ -34,7 +34,7 @@ class UserDetailsFragment :DaggerFragment() {
                 val users :Users? = arguments?.getParcelable(TAG_USER)
                 users.let {
                     val street = it?.location?.street
-                    toolbar.title = it?.name?.first + " "+ it?.name?.last
+                    toolbar.title = it?.name?.title+ ". "+it?.name?.first+ " "+it?.name?.last
                     ivProfileImage.setImageURI(it?.picture?.large)
                     tvEmail.text = it?.email
                     tvMobile.text = it?.phone

@@ -56,7 +56,7 @@ class UsersRecyclerAdapter @Inject constructor() :
 
         fun bind(user: Users) {
             with(itemView) {
-                tvName.text = user.name.title+ "."+user.name.first+ " "+user.name.last
+                tvName.text = user.name.title+ ". "+user.name.first+ " "+user.name.last
                 tvGender.text = user.gender.capitalize()
                 tvEmail.text = user.email
                 tvBirthday.text = Utils().formatDate(user.dob.date)
