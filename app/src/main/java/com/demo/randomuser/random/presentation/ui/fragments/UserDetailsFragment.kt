@@ -37,7 +37,7 @@ class UserDetailsFragment :DaggerFragment() {
                     toolbar.title = it?.name?.title+ ". "+it?.name?.first+ " "+it?.name?.last
                     ivProfileImage.setImageURI(it?.picture?.large)
                     tvEmail.text = it?.email
-                    tvMobile.text = it?.phone
+                    tvMobile.text = it?.cell
                     tvStreet.text = street?.number.toString() +" "+street?.name
                     tvCity.text = it?.location?.city
                     tvState.text = it?.location?.state
