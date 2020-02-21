@@ -2,6 +2,8 @@ package com.demo.randomuser.random.presentation.ui.fragments
 
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.randomuser.R
 import com.demo.randomuser.common.Status
+import com.demo.randomuser.common.Utils
 import com.demo.randomuser.common.ViewModelFactory
 import com.demo.randomuser.random.data.model.Users
 import com.demo.randomuser.random.presentation.ui.adapter.UsersRecyclerAdapter
@@ -21,8 +24,6 @@ import com.demo.randomuser.random.presentation.viewmodel.RandomListViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_random_list.*
 import javax.inject.Inject
-import android.text.Editable
-import android.text.TextWatcher
 
 var TAG_USER = "USER"
 class RandomListFragment : DaggerFragment() {
@@ -36,12 +37,13 @@ class RandomListFragment : DaggerFragment() {
     private lateinit var userViewModel: RandomListViewModel
 
     private var loading = true
-    var pastVisiblesItems: Int = 0
-    var visibleItemCount:Int = 0
-    var totalItemCount:Int = 0
-    private  var page = 1;
-    private var isFromPagination = false;
-    private var users :ArrayList<Users> = ArrayList<Users>();
+    private var pastVisiblesItems: Int = 0
+    private var visibleItemCount:Int = 0
+    private var totalItemCount:Int = 0
+    private var page = 1
+    private var isFromPagination = false
+
+    private var users :ArrayList<Users> = ArrayList();
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,6 +108,10 @@ class RandomListFragment : DaggerFragment() {
         }
 
 
+        initListeners(mLayoutManager)
+    }
+
+    private fun initListeners(mLayoutManager: LinearLayoutManager) {
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 //empty
@@ -133,7 +139,7 @@ class RandomListFragment : DaggerFragment() {
                     if (loading) {
                         if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
                             isFromPagination = true
-                            userViewModel.loadUsers(true,page++)
+                            userViewModel.loadUsers(true, page++)
 
                         }
                     }
@@ -164,8 +170,11 @@ class RandomListFragment : DaggerFragment() {
     fun filter(text: String) {
         val filterUser : ArrayList<Users> = ArrayList()
         for (tempUser in users) {
-            if (tempUser.gender.toLowerCase().contains(text.toLowerCase()) || tempUser.name.first.toLowerCase().contains(text.toLowerCase()
-                ) || tempUser.location.city.toLowerCase().contains(text.toLowerCase())) {
+            if (tempUser.gender.toLowerCase().contains(text.toLowerCase())
+                || tempUser.name.first.toLowerCase().contains(text.toLowerCase())
+                || tempUser.location.country.toLowerCase().contains(text.toLowerCase())
+                || tempUser.name.last.toLowerCase().contains(text.toLowerCase())
+                || Utils().formatDate(tempUser.dob.date).toLowerCase().contains(text.toLowerCase())) {
                 filterUser.add(tempUser)
             }
         }
