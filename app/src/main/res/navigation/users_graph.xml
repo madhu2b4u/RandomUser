@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/users_graph"
+            app:startDestination="@id/userList">
+
+    <fragment android:id="@+id/userList"
+              android:name="com.demo.randomuser.random.presentation.ui.fragments.RandomListFragment"
+              android:label="fragment_users"
+              tools:layout="@layout/fragment_random_list">
+
+        <action
+            android:id="@+id/action_top_up"
+            app:destination="@id/userDetails"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@anim/fade_out"/>
+
+
+    </fragment>
+
+    <fragment android:id="@+id/userDetails"
+
+        android:name="com.demo.randomuser.random.presentation.ui.fragments.UserDetailsFragment"
+        android:label="fragment_users_details"
+        tools:layout="@layout/fragment_user_detail">
+
+    </fragment>
+
+
+</navigation>
