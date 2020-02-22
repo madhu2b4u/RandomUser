@@ -42,7 +42,7 @@ class RandomListRepositoryTest {
     fun init() {
         MockitoAnnotations.initMocks(this)
 
-        repository = RandomListRepositoryImpl(remoteDataSource,localDataSource)
+        repository = RandomListRepositoryImpl(remoteDataSource, localDataSource)
     }
 
     @Test

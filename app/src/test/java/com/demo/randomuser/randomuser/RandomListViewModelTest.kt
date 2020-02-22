@@ -36,8 +36,8 @@ class RandomListViewModelTest {
     lateinit var randomListUseCase: RandomListUseCase
 
     @Before
-    fun init(){
-       //empty
+    fun init() {
+        //empty
     }
 
 
@@ -45,7 +45,8 @@ class RandomListViewModelTest {
     fun testLoadingData() = mainCoroutineRule.runBlockingTest {
 
         randomListUseCase = mock {
-            onBlocking { getRandomUsers(1, false) } doReturn object : LiveData<Result<List<Users>>>() {
+            onBlocking { getRandomUsers(1, false) } doReturn object :
+                LiveData<Result<List<Users>>>() {
                 init {
                     value = Result.loading()
                 }
@@ -70,7 +71,8 @@ class RandomListViewModelTest {
     fun testSuccessData() = mainCoroutineRule.runBlockingTest {
 
         randomListUseCase = mock {
-            onBlocking { getRandomUsers(1, false) } doReturn object : LiveData<Result<List<Users>>>() {
+            onBlocking { getRandomUsers(1, false) } doReturn object :
+                LiveData<Result<List<Users>>>() {
                 init {
                     value = Result.success(TestUtils().fakeUsers)
                 }
@@ -85,8 +87,10 @@ class RandomListViewModelTest {
 
         kotlinx.coroutines.delay(2000)
 
-        assert(LiveDataTestUtil.getValue(result).status == Status.SUCCESS &&
-                LiveDataTestUtil.getValue(result).data == TestUtils().fakeUsers)
+        assert(
+            LiveDataTestUtil.getValue(result).status == Status.SUCCESS &&
+                    LiveDataTestUtil.getValue(result).data == TestUtils().fakeUsers
+        )
 
     }
 
@@ -95,7 +99,8 @@ class RandomListViewModelTest {
     fun testErrorData() = mainCoroutineRule.runBlockingTest {
 
         randomListUseCase = mock {
-            onBlocking { getRandomUsers(1, false) } doReturn object : LiveData<Result<List<Users>>>() {
+            onBlocking { getRandomUsers(1, false) } doReturn object :
+                LiveData<Result<List<Users>>>() {
                 init {
                     value = Result.error("error")
                 }
@@ -111,8 +116,10 @@ class RandomListViewModelTest {
         kotlinx.coroutines.delay(2000)
 
 
-        assert(LiveDataTestUtil.getValue(result).status == Status.ERROR &&
-                LiveDataTestUtil.getValue(result).message == "error")
+        assert(
+            LiveDataTestUtil.getValue(result).status == Status.ERROR &&
+                    LiveDataTestUtil.getValue(result).message == "error"
+        )
 
     }
 
@@ -121,13 +128,15 @@ class RandomListViewModelTest {
     fun testFetchDataData() = mainCoroutineRule.runBlockingTest {
 
         randomListUseCase = mock {
-            onBlocking { getRandomUsers(1, true) } doReturn object : LiveData<Result<List<Users>>>() {
+            onBlocking { getRandomUsers(1, true) } doReturn object :
+                LiveData<Result<List<Users>>>() {
                 init {
                     value = Result.error("error")
                 }
             }
 
-            onBlocking { getRandomUsers(1, false) } doReturn object : LiveData<Result<List<Users>>>() {
+            onBlocking { getRandomUsers(1, false) } doReturn object :
+                LiveData<Result<List<Users>>>() {
                 init {
                     value = Result.success(TestUtils().fakeUsers)
                 }
@@ -141,8 +150,10 @@ class RandomListViewModelTest {
         result.observeForever {}
 
 
-        assert(LiveDataTestUtil.getValue(result).status == Status.SUCCESS &&
-                LiveDataTestUtil.getValue(result).data == TestUtils().fakeUsers)
+        assert(
+            LiveDataTestUtil.getValue(result).status == Status.SUCCESS &&
+                    LiveDataTestUtil.getValue(result).data == TestUtils().fakeUsers
+        )
 
         kotlinx.coroutines.delay(2000)
 
@@ -152,11 +163,12 @@ class RandomListViewModelTest {
         kotlinx.coroutines.delay(2000)
 
 
-        assert(LiveDataTestUtil.getValue(result).status == Status.ERROR &&
-                LiveDataTestUtil.getValue(result).message == "error")
+        assert(
+            LiveDataTestUtil.getValue(result).status == Status.ERROR &&
+                    LiveDataTestUtil.getValue(result).message == "error"
+        )
 
     }
-
 
 
 }

@@ -46,7 +46,8 @@ class RamdomListRemoteDataSourceTest {
             }
         }
 
-        remoteDataSource = RandomListRemoteDataSourceImpl(service, mainCoroutineRule.coroutineContext)
+        remoteDataSource =
+            RandomListRemoteDataSourceImpl(service, mainCoroutineRule.coroutineContext)
 
 
     }
@@ -60,7 +61,8 @@ class RamdomListRemoteDataSourceTest {
             }
         }
 
-        remoteDataSource = RandomListRemoteDataSourceImpl(service, mainCoroutineRule.coroutineContext)
+        remoteDataSource =
+            RandomListRemoteDataSourceImpl(service, mainCoroutineRule.coroutineContext)
 
         // Will be launched in the mainThreadSurrogate dispatcher
         val result = remoteDataSource.getRandomUsers(1)
@@ -82,7 +84,7 @@ class RamdomListRemoteDataSourceTest {
         remoteDataSource =
             RandomListRemoteDataSourceImpl(service, mainCoroutineRule.coroutineContext)
 
-        assert(remoteDataSource.getRandomUsers(1) ==  response.users)
+        assert(remoteDataSource.getRandomUsers(1) == response.users)
 
     }
 

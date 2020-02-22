@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_random_list.*
 import javax.inject.Inject
 
 var TAG_USER = "USER"
+
 class RandomListFragment : DaggerFragment() {
 
     @Inject
@@ -39,8 +40,8 @@ class RandomListFragment : DaggerFragment() {
 
     private var loading = true
     private var pastVisiblesItems: Int = 0
-    private var visibleItemCount:Int = 0
-    private var totalItemCount:Int = 0
+    private var visibleItemCount: Int = 0
+    private var totalItemCount: Int = 0
     private var page = 1
     private var isFromPagination = false
 
@@ -48,7 +49,8 @@ class RandomListFragment : DaggerFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_random_list, container, false)
     }
@@ -75,7 +77,7 @@ class RandomListFragment : DaggerFragment() {
                         Status.SUCCESS -> {
                             hideLoading()
                             it.data?.let { articles ->
-                                usersRecyclerAdapter.populateUsers(articles,isFromPagination)
+                                usersRecyclerAdapter.populateUsers(articles, isFromPagination)
                                 users = usersRecyclerAdapter.getUsers()
                             }
                         }
@@ -107,8 +109,11 @@ class RandomListFragment : DaggerFragment() {
             userViewModel.loadUsers(page, true)
         }
 
-        usersRecyclerAdapter.addClickListener {it->
-            view?.let { it1 -> Navigation.findNavController(it1).navigate(R.id.userDetails,prepareBundleForUser(it))}
+        usersRecyclerAdapter.addClickListener { it ->
+            view?.let { it1 ->
+                Navigation.findNavController(it1)
+                    .navigate(R.id.userDetails, prepareBundleForUser(it))
+            }
         }
 
 
@@ -173,13 +178,14 @@ class RandomListFragment : DaggerFragment() {
     }
 
     fun filter(text: String) {
-        val filterUser : ArrayList<Users> = ArrayList()
+        val filterUser: ArrayList<Users> = ArrayList()
         for (tempUser in users) {
             if (tempUser.gender.toLowerCase().contains(text.toLowerCase())
                 || tempUser.name.first.toLowerCase().contains(text.toLowerCase())
                 || tempUser.location.country.toLowerCase().contains(text.toLowerCase())
                 || tempUser.name.last.toLowerCase().contains(text.toLowerCase())
-                || Utils().formatDate(tempUser.dob.date).toLowerCase().contains(text.toLowerCase())) {
+                || Utils().formatDate(tempUser.dob.date).toLowerCase().contains(text.toLowerCase())
+            ) {
                 filterUser.add(tempUser)
             }
         }
@@ -198,7 +204,6 @@ class RandomListFragment : DaggerFragment() {
             snack?.show()
         }
     }
-
 
 
 }

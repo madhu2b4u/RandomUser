@@ -1,6 +1,5 @@
 package com.demo.randomuser.random.presentation.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.demo.randomuser.common.Utils
 import com.demo.randomuser.random.data.model.Users
 import kotlinx.android.synthetic.main.item_user.view.*
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 class UsersRecyclerAdapter @Inject constructor() :
@@ -22,8 +17,8 @@ class UsersRecyclerAdapter @Inject constructor() :
     private var function: ((Users) -> Unit)? = null
 
 
-    fun populateUsers(users: List<Users>, isFromPaginaton : Boolean) {
-        if (!isFromPaginaton)usersList.clear()
+    fun populateUsers(users: List<Users>, isFromPaginaton: Boolean) {
+        if (!isFromPaginaton) usersList.clear()
         usersList.addAll(users)
         notifyDataSetChanged()
     }
@@ -46,7 +41,9 @@ class UsersRecyclerAdapter @Inject constructor() :
 
     override fun getItemCount() = usersList.size
 
-    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) = holder.bind(usersList[position])
+    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) =
+        holder.bind(usersList[position])
+
     fun getUsers(): ArrayList<Users> {
         return usersList as ArrayList<Users>
     }
@@ -56,7 +53,7 @@ class UsersRecyclerAdapter @Inject constructor() :
 
         fun bind(user: Users) {
             with(itemView) {
-                tvName.text = user.name.title+ ". "+user.name.first+ " "+user.name.last
+                tvName.text = user.name.title + ". " + user.name.first + " " + user.name.last
                 tvGender.text = user.gender.capitalize()
                 tvEmail.text = user.email
                 tvBirthday.text = Utils().formatDate(user.dob.date)
@@ -71,9 +68,7 @@ class UsersRecyclerAdapter @Inject constructor() :
         }
 
 
-
     }
-
 
 
 }

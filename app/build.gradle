@@ -61,8 +61,6 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.1.1'
 
 
-
-
     implementation libraries.dagger
     implementation libraries.daggerSupport
     kapt libraries.daggerProcessor
@@ -84,7 +82,6 @@ dependencies {
     implementation libraries.lifecycleFragment
     implementation libraries.lifecycleextensions
     implementation libraries.fresco
-
 
 
 }

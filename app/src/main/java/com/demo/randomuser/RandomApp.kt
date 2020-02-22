@@ -10,6 +10,7 @@ class RandomApp : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerRandomAppComponent.builder().application(this).build()
     }
+
     override fun onCreate() {
         super.onCreate()
         Fresco.initialize(this)

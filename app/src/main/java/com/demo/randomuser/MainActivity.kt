@@ -1,10 +1,9 @@
 package com.demo.randomuser
 
 import android.os.Bundle
-import dagger.android.DaggerActivity
 import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity :  DaggerAppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

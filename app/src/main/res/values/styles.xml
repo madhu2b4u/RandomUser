@@ -17,7 +17,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Detail" parent="AppTheme"/>
+    <style name="Detail" parent="AppTheme" />
 
     <style name="Detail.Icon" parent="Detail">
         <item name="android:padding">8dp</item>

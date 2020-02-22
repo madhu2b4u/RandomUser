@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-<LinearLayout
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <include
-        layout="@layout/birthday_layout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <include
-        layout="@layout/email_layout" />
+        <include layout="@layout/birthday_layout" />
 
-    <include
-        layout="@layout/phone_layout" />
+        <include layout="@layout/email_layout" />
 
-    <include
-        layout="@layout/address_layout" />
-</LinearLayout>
+        <include layout="@layout/phone_layout" />
+
+        <include layout="@layout/address_layout" />
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -39,21 +39,22 @@ class RandomListLocalDataSourceTest {
     fun init() {
         MockitoAnnotations.initMocks(this)
 
-        localDataSource = UsersLocalDataSourceImpl(usersDao, UserMapper(Gson()) , mainCoroutineRule.coroutineContext)
+        localDataSource = UsersLocalDataSourceImpl(
+            usersDao,
+            UserMapper(Gson()),
+            mainCoroutineRule.coroutineContext
+        )
     }
 
 
     @Test
-    fun testInvalidEntityUsers()=mainCoroutineRule.runBlockingTest{
+    fun testInvalidEntityUsers() = mainCoroutineRule.runBlockingTest {
         Mockito.`when`(usersDao.getUsers("123Random")).thenReturn(null)
 
         val result = localDataSource.getUsers()
 
         assert(result == null)
     }
-
-
-
 
 
 }
