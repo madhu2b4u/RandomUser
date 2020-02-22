@@ -9,4 +9,5 @@
     <string name="city">City</string>
     <string name="state">State</string>
     <string name="country">Country</string>
+    <string name="no_internet">No internet connection available</string>
 </resources>

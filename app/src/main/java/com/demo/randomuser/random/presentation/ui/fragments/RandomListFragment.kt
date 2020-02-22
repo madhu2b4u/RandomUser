@@ -21,6 +21,7 @@ import com.demo.randomuser.common.ViewModelFactory
 import com.demo.randomuser.random.data.model.Users
 import com.demo.randomuser.random.presentation.ui.adapter.UsersRecyclerAdapter
 import com.demo.randomuser.random.presentation.viewmodel.RandomListViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_random_list.*
 import javax.inject.Inject
@@ -43,7 +44,7 @@ class RandomListFragment : DaggerFragment() {
     private var page = 1
     private var isFromPagination = false
 
-    private var users :ArrayList<Users> = ArrayList();
+    private var users: ArrayList<Users> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,9 +61,10 @@ class RandomListFragment : DaggerFragment() {
 
                 initViews()
 
-                userViewModel =
-                    ViewModelProviders.of(activity!!, viewModelFactory)
-                        .get(RandomListViewModel::class.java)
+                showSnack()
+
+                userViewModel = ViewModelProviders.of(activity!!, viewModelFactory)
+                    .get(RandomListViewModel::class.java)
 
                 userViewModel.userResult.observe(this@RandomListFragment, Observer {
                     when (it.status) {
@@ -74,7 +76,7 @@ class RandomListFragment : DaggerFragment() {
                             hideLoading()
                             it.data?.let { articles ->
                                 usersRecyclerAdapter.populateUsers(articles,isFromPagination)
-                                users = usersRecyclerAdapter.getUsers();
+                                users = usersRecyclerAdapter.getUsers()
                             }
                         }
 
@@ -99,8 +101,10 @@ class RandomListFragment : DaggerFragment() {
         rvUsers.layoutManager = mLayoutManager
         rvUsers.adapter = usersRecyclerAdapter
         swipeRefresh.setOnRefreshListener {
+            showSnack()
             isFromPagination = false
-            userViewModel.loadUsers(true,page)
+            swipeRefresh.isRefreshing = false
+            userViewModel.loadUsers(page, true)
         }
 
         usersRecyclerAdapter.addClickListener {it->
@@ -135,12 +139,13 @@ class RandomListFragment : DaggerFragment() {
                     visibleItemCount = mLayoutManager.childCount
                     totalItemCount = mLayoutManager.itemCount
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
-
-                    if (loading) {
+                    if (loading && context?.let { Utils().isNetworkAvailable(it) }!!) {
                         if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
                             isFromPagination = true
-                            userViewModel.loadUsers(true, page++)
+                            userViewModel.loadUsers(page++, true)
 
+                        } else {
+                            showSnack()
                         }
                     }
                 }
@@ -179,6 +184,19 @@ class RandomListFragment : DaggerFragment() {
             }
         }
         usersRecyclerAdapter.updateList(filterUser)
+    }
+
+    private fun showSnack() {
+        if (!context?.let { Utils().isNetworkAvailable(it) }!!) {
+            val snack = view?.let {
+                Snackbar.make(
+                    it,
+                    getString(R.string.no_internet),
+                    Snackbar.LENGTH_LONG
+                )
+            }
+            snack?.show()
+        }
     }
 
 

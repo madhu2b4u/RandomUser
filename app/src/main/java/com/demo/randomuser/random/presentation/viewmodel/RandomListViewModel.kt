@@ -17,10 +17,10 @@ class RandomListViewModel @Inject constructor(
     val userResult = MediatorLiveData<Result<List<Users>>>()
 
     init {
-        loadUsers(false,1)
+        loadUsers(1)
     }
 
-    fun loadUsers(mustFetchFromNetwork: Boolean, page: Int) {
+    fun loadUsers(page: Int, mustFetchFromNetwork: Boolean = false) {
         viewModelScope.launch {
             userResult.addSource(mRandomListUseCase.getRandomUsers(page, mustFetchFromNetwork)) {
                 userResult.value = it

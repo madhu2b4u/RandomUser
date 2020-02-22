@@ -146,7 +146,7 @@ class RandomListViewModelTest {
 
         kotlinx.coroutines.delay(2000)
 
-        randomListViewModel.loadUsers(true,1)
+        randomListViewModel.loadUsers(1, true)
 
 
         kotlinx.coroutines.delay(2000)
